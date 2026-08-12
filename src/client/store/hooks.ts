@@ -1,9 +1,9 @@
 import { createCallAction } from "@sharkord/plugin-sdk";
-import { actions, useStoreSelector } from ".";
-import { currentVoiceChannelIdSelector } from "./selectors";
 import type { Actions } from "../../contracts/actions";
+import { store } from "./index";
 
-export const useCallAction = () => createCallAction<Actions>(actions);
+function useCallAction() {
+  return createCallAction<Actions>(store.actions);
+}
 
-export const useCurrentVoiceChannelId = () =>
-  useStoreSelector(currentVoiceChannelIdSelector);
+export { useCallAction };

@@ -16,5 +16,8 @@
     "react": "^19",
     "reselect": "^5",
     "re-reselect": "^5"
+  },
+  "dependencies": {
+    "adm-zip": "^0.6.0"
   }
 }

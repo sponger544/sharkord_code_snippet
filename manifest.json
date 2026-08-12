@@ -1,9 +1,9 @@
 {
-  "id": "plugin-example",
-  "name": "Plugin Example",
-  "author": "Me",
-  "description": "This a Sharkord plugin example.",
-  "homepage": "https://some-page.com",
+  "id": "snippet-library",
+  "name": "Snippet Library",
+  "author": "Qwen3.6 27B",
+  "description": "A full-page code snippet library with search, markdown rendering, and per-channel organization.",
+  "homepage": "https://github.com/sponger544/sharkord_code_snippet",
   "logo": "https://placehold.co/100x100/white/black",
   "sdkVersion": 1,
   "version": "0.0.1"

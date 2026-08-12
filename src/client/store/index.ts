@@ -1,25 +1,18 @@
-import { useEffect, useState } from "react";
-import type { TPluginStore } from "@sharkord/plugin-sdk";
+import type { TPluginStore, TPluginStoreState } from "@sharkord/plugin-sdk";
 
-const store = window.__SHARKORD_STORE__;
+const store: TPluginStore = window.__SHARKORD_STORE__;
 
-const { actions, getState, subscribe } = store;
+function useStoreSelector<T>(selector: (state: TPluginStoreState) => T): T {
+  const React = window.__SHARKORD_REACT__ as typeof import("react");
+  const [state, setState] = React.useState(store.getState());
+  const value = selector(state);
 
-type SharkordState = ReturnType<TPluginStore["getState"]>;
-
-const useStoreSelector = <T>(selector: (state: SharkordState) => T) => {
-  const [value, setValue] = useState(() => selector(getState()));
-
-  useEffect(() => {
-    return subscribe(() => {
-      const next = selector(getState());
-
-      setValue(next);
-    });
+  React.useEffect(() => {
+    const unsubscribe = store.subscribe(() => setState(store.getState()));
+    return unsubscribe;
   }, []);
 
   return value;
-};
+}
 
-export { useStoreSelector, actions };
-export type { SharkordState };
+export { store, useStoreSelector };

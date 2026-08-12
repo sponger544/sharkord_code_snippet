@@ -1,8 +1,6 @@
-type Commands = {
-  hello: {
-    args: { name: string };
+export type Commands = {
+  snippet: {
+    args: { title: string };
     response: string;
   };
 };
-
-export type { Commands };
