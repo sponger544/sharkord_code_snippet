@@ -1,6 +1,6 @@
 import { Button } from "@sharkord/ui";
 import { memo, useState } from "react";
-import { SnippetLibrary } from "./snippet-library/index";
+import { SnippetLibrary } from "./snippet-library";
 
 /**
  * Small button in the CHAT_ACTIONS slot that expands into the full library.

@@ -330,11 +330,33 @@ export function useSnippetLibrary(onClose?: () => void) {
   };
 
   // ── Navigation Helpers ───────────────────────────────────────────
-  const resetForm = () => { setFormTitle(""); setFormLang("typescript"); setFormDesc(""); setFormContent(""); };
-  const openNew = () => { resetForm(); setView("new"); setError(null); };
-  const openEdit = () => { if (!selected) return; setFormTitle(selected.title); setFormLang(selected.language); setFormDesc(selected.description); setFormContent(selected.content); setView("edit"); setError(null); };
-  const goBack = () => { setSelected(null); resetForm(); setError(null); setPreviewVersion(null); setView("list"); loadSnippets(searchRef.current); if (onClose) onClose(); };
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { const val = e.target.value; setSearch(val); loadSnippets(val); };
+  const resetForm = useCallback(() => { setFormTitle(""); setFormLang("typescript"); setFormDesc(""); setFormContent(""); }, []);
+  const openNew = useCallback(() => { resetForm(); setView("new"); setError(null); }, [resetForm]);
+  const openEdit = useCallback(() => {
+    if (!selected) return;
+    setFormTitle(selected.title);
+    setFormLang(selected.language);
+    setFormDesc(selected.description);
+    setFormContent(selected.content);
+    setView("edit");
+    setError(null);
+  }, [selected]);
+
+  const goBack = useCallback(() => {
+    setSelected(null);
+    resetForm();
+    setError(null);
+    setPreviewVersion(null);
+    setView("list");
+    loadSnippets(searchRef.current);
+    if (onClose) onClose();
+  }, [resetForm, loadSnippets, onClose]);
+
+  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setSearch(val);
+    loadSnippets(val);
+  }, [loadSnippets]);
 
   // ── Return ───────────────────────────────────────────────────────
   return {
@@ -362,7 +384,7 @@ export function useSnippetLibrary(onClose?: () => void) {
     resetForm,
 
     // Misc setters
-    setShareChannelId, setTargetFolderId, setMoveModalOpen,
+    setShareChannelId, setTargetFolderId, setMoveModalOpen, setModalInput,
 
     // Exposed for index.tsx wiring
     setEditingFolder: (f: FolderInfo | null) => setEditingFolder(f),

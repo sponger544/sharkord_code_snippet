@@ -1,7 +1,5 @@
-B
 import { Button } from "@sharkord/ui";
 import { memo, useState } from "react";
-import { THEMES, setStoredTheme } from "../../themes";
 import type { Theme } from "../../themes";
 
 interface ThemeSelectorProps {
